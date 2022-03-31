@@ -12,7 +12,8 @@
 
 # intellij
 *.idea
-
+out
+*Curso*/
 # Package Files #
 *.jar
 *.war
