@@ -1,18 +1,15 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class GameKeyListener implements KeyListener {
+class GameKeyListener implements KeyListener {
 
-    private final boolean[] keyPressed = new boolean[128];
+    private static final boolean[] gameKeys = new boolean[128];
 
-
-    private boolean isValidKey(int e){
-        // Verifica se o código da tecla é valido
-        return (e >= 0 && e < 128);
+    private boolean isValidKey(int key){
+        return (key >= 0 && key < 128);
     }
 
     private boolean isValidKey(KeyEvent e){
-        // Verifica se o código da tecla é valido
         return isValidKey(e.getKeyCode());
     }
 
@@ -21,31 +18,25 @@ public class GameKeyListener implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        // Seta o valor da tecla para true
-        if (isValidKey(e))
-            this.keyPressed[e.getKeyCode()] = true;
+        if (isValidKey(e)){
+            gameKeys[e.getKeyCode()] = true;
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        // Seta o valor da tecla para false
-        if (isValidKey(e))
-            this.keyPressed[e.getKeyCode()] = false;
+        if (isValidKey(e)){
+            gameKeys[e.getKeyCode()] = false;
+        }
     }
 
-    public boolean isKeyPressed(int keyCode){
-        // Retorna true caso a tecla esteja pressionada
-        if (isValidKey(keyCode))
-            return this.keyPressed[keyCode];
+    public boolean isKeyPressed(int e){
+        if (isValidKey(e))
+            return gameKeys[e];
         return false;
     }
 
-    public boolean getKeyPressed(int keyCode){
-        // Retorna true se a tecla está pressionada
-        // e seta o valor dela para false.
-        boolean isPressed = isKeyPressed(keyCode);
-        if (isPressed)
-            this.keyPressed[keyCode] = false;
-        return isPressed;
+    public boolean isKeyPressed(KeyEvent e){
+        return isKeyPressed(e.getKeyCode());
     }
 }
