@@ -1,23 +1,20 @@
 
 class Time {
 
-    private static final long timeStarted = System.nanoTime();
-    private static double lastFrameTime = 0;
-
-    private static double getTime(){
-        return (System.nanoTime() - timeStarted) * 1E-9;
-    }
+    private static long startedTime = System.nanoTime();
+    private static double lastFrameTime = 0.0;
 
     public static double getDeltaTime(){
-        final double time = getTime();
+        final double time = (System.nanoTime() - lastFrameTime) * 1E-9;
         final double deltaTime = time - lastFrameTime;
         lastFrameTime = time;
         return deltaTime;
     }
 
     public static void sleep(){
-        try {
+        try{
             Thread.sleep(Constants.SLEEP_TIME);
         } catch (Exception ignored){}
+
     }
 }

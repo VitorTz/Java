@@ -1,12 +1,12 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-class GameKeyListener implements KeyListener {
+public class GameKeyListener implements KeyListener {
 
-    private static final boolean[] gameKeys = new boolean[128];
+    private final boolean[] keys = new boolean[128];
 
-    private boolean isValidKey(int key){
-        return (key >= 0 && key < 128);
+    private boolean isValidKey(int e){
+        return (e >= 0 && e < keys.length);
     }
 
     private boolean isValidKey(KeyEvent e){
@@ -14,29 +14,25 @@ class GameKeyListener implements KeyListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {}
+    public void keyTyped(KeyEvent e) {
+
+    }
 
     @Override
     public void keyPressed(KeyEvent e) {
         if (isValidKey(e)){
-            gameKeys[e.getKeyCode()] = true;
+            this.keys[e.getKeyCode()] = true;
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         if (isValidKey(e)){
-            gameKeys[e.getKeyCode()] = false;
+            this.keys[e.getKeyCode()] = false;
         }
     }
 
     public boolean isKeyPressed(int e){
-        if (isValidKey(e))
-            return gameKeys[e];
-        return false;
-    }
-
-    public boolean isKeyPressed(KeyEvent e){
-        return isKeyPressed(e.getKeyCode());
+        return (isValidKey(e) && this.keys[e]);
     }
 }
